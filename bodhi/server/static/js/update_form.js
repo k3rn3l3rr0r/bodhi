@@ -169,6 +169,7 @@ $(document).ready(function() {
             data: $.param({package: datum.name}),
             success: function(builds) {
                 $("#candidate-checkboxes .spinner").remove();
+                $("#candidate-checkboxes input:checkbox:not(:checked)").parents("div.checkbox").remove();
                 if (builds.length == 0) {return candidate_error(datum.name);}
                 $.each(builds, function(i, build) {
                     add_build_checkbox(build.nvr, build.id, false);
@@ -183,6 +184,7 @@ $(document).ready(function() {
             url: base + prefix + datum.name + suffix,
             success: function(data) {
                 $("#bugs-checkboxes .spinner").remove();
+                $("#bugs-checkboxes input:checkbox:not(:checked)").parents("div.checkbox").remove();
                 data = JSON.parse(data);
                 if (data.rows.length == 0) {return bugs_error(datum.name);}
                 $.each(data.rows, function(i, bug) {
